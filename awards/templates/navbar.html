@@ -11,12 +11,16 @@
             </div>
           </form>
         </li>
-        
+        <!--navbar icons-->
         <li><a href="/"><i class="material-icons black-text">home</i></a></li>
-        <li><a href=""><i class="material-icons black-text">add</i></a></li>
-        <li><a href=""><i class="material-icons black-text">account_circle</i></a></li>
-        <li><a href=""><i class="material-icons black-text">exit_to_app</i></a></li>
-    
+        {% if request.user.is_authenticated %}
+          <li><a href=""><i class="material-icons black-text">account_circle</i></a></li>
+          <li><a href="{% url 'logout' %}"><i class="material-icons black-text">exit_to_app</i></a></li>
+          <li><a href=""><i class="material-icons black-text">add</i></a></li>
+        {% else %}
+          <li><a href=""><i class="material-icons black-text">add</i></a></li>
+          <li><a href="{% url 'login' %}"><i class="material-icons black-text">add</i>login</a></li>
+        {% endif %}
       </ul>
     </div>
   </nav>
