@@ -1,0 +1,43 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  {% if title %}
+  <title>web awards</title>
+  {% else %}
+  <title>web awards</title>
+  {% endif %}
+   <!--favicon-->
+   <link rel="icon" type="image/x-icon" href="/static/photos/instagram.png">
+
+   <!--materialize stylesheets CDN-->
+   
+   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.1/css/materialize.min.css" integrity="sha256-qj3p6P1fJIV+Ndv7RW1ovZI2UhOuboj9GcODzcNFIN8=" crossorigin="anonymous" />
+   <!--custom stylesheet-->
+   <link rel="stylesheet" href="{% static 'css/index.css' %}">
+</head>
+<body>
+  {% include "navbar.html" %}
+  <!--flash messages-->
+  {% if messages %}
+    {% for message in messages %}
+      <div class="container">
+        <div class="alert">
+          {{ message }}
+        </div> 
+      </div>
+    {% endfor %}
+  {% endif %}
+  {% block content %}
+  
+  {% endblock %}
+  <!--materialize scripts CDN-->
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+  
+</body>
+</html>
