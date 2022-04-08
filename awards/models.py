@@ -16,6 +16,12 @@ class Project(models.Model):
     def __str__(self):
         return self.title
 
+    @classmethod
+    def search_project(cls,search_term):
+        projects = cls.objects.filter(title__icontains=search_term)
+        return projects
+
+
 class Profile(models.Model):
     '''
     Profile model acts as blueprint for all profile instances

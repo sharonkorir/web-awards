@@ -5,7 +5,7 @@
       <ul class="right">
         <li>
           <!--search for projects-->
-          <form id="search-site" action="" method='get'>
+          <form id="search-site" action="{% url 'search_results' %}" method='get'>
             <div class="input-field">
               <input placeholder="Search projects..."  id="search" type="text" class="validate" name="project">
             </div>

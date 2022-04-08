@@ -1,0 +1,12 @@
+{%extends 'base.html'%} 
+{% block content %}
+<div class="container">
+  <div class="row">
+    {% if projects%}
+      <h5>Found {{ users|length }} projects with search name '{{message}}'</h5>
+    {% else %}
+      <h5> Found 0 projects with name '{{message}}'</h5>
+    {% endif %}
+  </div>
+</div>
+{% endblock %}
