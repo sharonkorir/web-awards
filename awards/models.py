@@ -1,4 +1,5 @@
 from django.db import models
+from cloudinary.models import CloudinaryField
 
 # Create your models here.
 class Project(models.Model):
@@ -7,7 +8,7 @@ class Project(models.Model):
     '''
     title = models.CharField(max_length =60)
     description = models.TextField()
-    #image = CloudinaryField('image')
+    image = CloudinaryField('image', default='default')
     #owner = models.ForeignKey(User,on_delete=models.CASCADE)
     link = models.CharField(max_length =120)
     date_posted = models.DateTimeField(auto_now_add=True)
@@ -20,7 +21,7 @@ class Profile(models.Model):
     Profile model acts as blueprint for all profile instances
     '''
     bio = models.CharField(max_length =150)
-    # profile_photo = CloudinaryField('image')
+    profile_photo = CloudinaryField('image', default='default')
     name = models.CharField(max_length=30)
     # email = models.EmailField()
     # user = models.OneToOneField(User, on_delete=models.CASCADE)
