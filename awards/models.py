@@ -2,30 +2,6 @@ from django.db import models
 from cloudinary.models import CloudinaryField
 from django.contrib.auth.models import User
 
-# Create your models here.
-class Project(models.Model):
-    '''
-    Project model acts as blueprint for all project instances
-    '''
-    title = models.CharField(max_length =60)
-    description = models.TextField()
-    image = CloudinaryField('image', default='default')
-    link = models.CharField(max_length =120)
-    date_posted = models.DateTimeField(auto_now_add=True)
-    # user = models.ForeignKey(User,on_delete=models.CASCADE, null=True)
-
-    def __str__(self):
-        return self.title
-
-    @classmethod
-    def search_project(cls,search_term):
-        projects = cls.objects.filter(title__icontains=search_term)
-        return projects
-    
-    class Meta:
-        ordering = ['-date_posted']
-
-
 class Profile(models.Model):
     '''
     Profile model acts as blueprint for all profile instances
@@ -40,6 +16,32 @@ class Profile(models.Model):
     def __str__(self):
         return str(self.user)
 
+
+# Create your models here.
+class Project(models.Model):
+    '''
+    Project model acts as blueprint for all project instances
+    '''
+    title = models.CharField(max_length =60)
+    description = models.TextField()
+    image = CloudinaryField('image', default='default')
+    link = models.CharField(max_length =120)
+    date_posted = models.DateTimeField(auto_now_add=True)
+    profile = models.ForeignKey(Profile,on_delete=models.CASCADE, null=True)
+
+    def __str__(self):
+        return self.title
+
+    @classmethod
+    def search_project(cls,search_term):
+        projects = cls.objects.filter(title__icontains=search_term)
+        return projects
+    
+    class Meta:
+        ordering = ['-date_posted']
+
+
+
 RATE_CHOICES = [
   (1, '1'),
   (2, '2'),
@@ -50,7 +52,7 @@ RATE_CHOICES = [
   (7, '7'),
   (8, '8'),
   (9, '9'),
-  (10, '1o'),
+  (10, '10'),
 ]
 
 class Rate(models.Model):

@@ -1,5 +1,6 @@
+
 from django.shortcuts import render,redirect
-from awards.models import Project, Profile
+from awards.models import RATE_CHOICES, Project, Profile, Rate
 from django.contrib.auth.models import User
 from .forms import ProjectForm, RateForm
 
@@ -36,8 +37,8 @@ def user_profile(request, username):
     return render(request, 'authenticate/user_profile.html', {'users':users, 'profiles':profiles})
 
 def project_details(request, title):
-    projects = Project.objects.filter(title = title)
-    return render(request, 'projects/project_detail.html', {'projects':projects})
+    project = Project.objects.filter(title = title)
+    return render(request, 'projects/project_detail.html', {'project':project})
 
 def create_project(request):
     form = ProjectForm()
@@ -51,18 +52,21 @@ def create_project(request):
 
     return render(request, 'projects/create_project.html', {'form':form})
 
-def rate_project(request, project_id):
-    project = Project.objects.get(pk=project_id)
+def rate_project(request, id):
+    project = Project.objects.get(id=id)
     user = request.user
 
-    if request == 'POST':
+    if request.method == 'POST':
         form = RateForm(request.POST)
         if form.is_valid():
-            rate = form.save()
+            design = form.cleaned_data['design']
+            rate = form.save(commit=False)
             rate.user = user
             rate.project = project
             rate.save()
-
+            print('test' ,rate.user)
+            return redirect('project_details', id)
+            
     else:
         form = RateForm()
 

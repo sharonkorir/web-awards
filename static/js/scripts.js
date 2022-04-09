@@ -1,2 +1,13 @@
-$('#textarea1').val('New Text');
-$('#textarea1').trigger('autoresize');
+//modal jquery
+
+document.addEventListener('DOMContentLoaded', function() {
+  var elems = document.querySelectorAll('.modal');
+  var instances = M.Modal.init(elems, options);
+});
+
+// Or with jQuery
+
+$(document).ready(function(){
+  $('.modal').modal();
+});
+

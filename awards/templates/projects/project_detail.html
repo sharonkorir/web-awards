@@ -8,21 +8,61 @@
       <!--card header-->
       <div class="row" style="display: flex; align-items: center;">
         <div class="card-image" style="height: 80px; width: 80px; padding: 10px;">
+        {% for project in project %}
           {% if project.profile.profile_photo %}
-            <img src="{{project.profile.userprofile.profile_photo.url}}" alt="" class="circle responsive-img" style="height: 100%; width: 100%; object-fit: cover;">
+            <img src="{{project.profile.profile_photo.url}}" alt="" class="circle responsive-img" style="height: 100%; width: 100%; object-fit: cover;">
           {% else %}
             <img src="http://www.gravatar.com/avatar/?d=mp" alt="" class="circle responsive-img">
           {% endif %}
         </div> 
-        <p><b>{{project.profile}}</b></p></h5>   
+        <p><b>{{project.title}}</b></p></h5>   
       </div>
       <!--image-->
       <div class="card-image" style="height: 600px; padding-top: 0px;">
         
-          <img src="{{project.image.url}}" class="responsive-img" alt="Image" id="img">
+          <!-- <img src="{{project.image.url}}" class="responsive-img" alt="Image" id="img"> -->
       
       </div>
-      <!--footer-->
+    
+      <!-- Modal Trigger -->
+      <a data-target="modal1{{project.id}}" class="modal-trigger teal">
+        <div class="card-image">
+          
+            vote
+          
+        </div>
+      </a>
+
+       <!-- Modal Structure -->
+       <div id="modal1{{project.id}}" class="modal">
+        <div class="modal-content">
+          <p>modal test</p>
+          <h5>Rate {{project.title}}</h5>
+          <form action="" method="POST">
+            {% csrf_token %}
+            {{form.as_p}}
+            <p class="range-field">
+              Design:
+              <input type="range" name="design" min="0" max="10" class="validate" />
+            </p>
+            <p class="range-field">
+              Content:
+              <input type="range" name="content" min="0" max="10" class="validate"/>
+            </p>
+            <p class="range-field">
+              Usability:
+              <input type="range" name="usability" min="0" max="10" class="validate"/>
+            </p> 
+            <div class="row">
+              <button type="submit" class=" waves-effect waves-light btn blue red" name="action">Rate {{project.title}}</button>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <a href="#!" class="modal-close waves-effect waves-green btn-flat">Submit rate</a>
+        </div>
+      </div>  
+
       <div class="row" style="display: flex; align-items: center;">
         <i class="material-icons" style="padding: 10px;">favorite_border</i>
         <i class="material-icons"style="padding: 10px;">chat_bubble_outline</i>
@@ -45,9 +85,8 @@
             <a href="{% url 'post_delete' pk=object.id %}"><i class="material-icons black-text">delete</i></a>
           </div>
         {% endif %}
-
       </div>
-  
+      {% endfor %}
     </div>
   </div>
 {% endblock %}

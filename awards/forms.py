@@ -1,8 +1,6 @@
 from django import forms
 from django.forms import ModelForm
 from .models import Project, Rate, RATE_CHOICES
-from django import forms
-
 
 class ProjectForm(ModelForm):
 
