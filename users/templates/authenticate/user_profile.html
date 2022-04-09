@@ -1,0 +1,52 @@
+
+{% extends 'authenticate/base.html' %}
+{% block content %}
+<!--navbar-->
+{% include "navbar.html" %}
+<!--display messages-->
+{% if messages %}
+  {% for message in messages %}
+    <div class="container center-align">
+      <div>
+        {{ message }}
+      </div> 
+    </div>
+  {% endfor %}
+{% endif %}
+
+  <div class="container-fluid">
+    <div class="row center-align" style="display: flex; justify-content: center; align-items: center; padding-top:50px;">
+      <div class="card-image" style="height: 250px; width: 250px; padding: 40px;">
+      {% for user in users %}
+        {% if user.profile_photo %}
+          <img src="{{user.profile_photo.url}}" alt="" class="circle responsive-img" style="height: 100%; width: 100%; object-fit: cover;">
+        {% else %}
+          <img src="http://www.gravatar.com/avatar/?d=mp" alt="" class="circle responsive-img">
+      {% endif %}  
+      </div>
+      <div>
+        <div class="row" style="display: flex;">
+          <p style="padding-right: 10px;"><b>{{user.username}}</b></p>
+          {% if user == current_user %}
+          <p><a href="{% url 'update_profile' %}">Edit Profile</a></p>
+          {% endif %}
+        </div>
+        <div class="row" style="display: flex;">
+          <p style="padding-right: 10px;"><b>{{projects|length}}</b> projects </p>
+        </div>
+        <div class="row">
+          <p>{{user.profile.bio}}</p>
+        </div>
+      </div>
+    </div> 
+    {% endfor %} 
+     
+    <!--user projects-->
+    
+</div>
+
+  <!--footer-->
+  <div class="section center" style="color: #8c9395;">
+    <p>2022 web-awards</p>
+  </div>
+{% endblock %}

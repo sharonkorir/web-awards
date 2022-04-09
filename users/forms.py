@@ -1,4 +1,4 @@
-from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 from django.contrib.auth.models import User
 from django import forms
 
@@ -16,3 +16,4 @@ class RegisterUserForm(UserCreationForm):
         self.fields['username'].widget.attrs['class'] = 'input-field col s12'
         self.fields['password1'].widget.attrs['class'] = 'input-field col s12'
         self.fields['password2'].widget.attrs['class'] = 'input-field col s12'
+

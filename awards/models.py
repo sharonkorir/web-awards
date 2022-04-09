@@ -1,5 +1,6 @@
 from django.db import models
 from cloudinary.models import CloudinaryField
+from django.contrib.auth.models import User
 
 # Create your models here.
 class Project(models.Model):
@@ -28,10 +29,10 @@ class Profile(models.Model):
     '''
     bio = models.CharField(max_length =150)
     profile_photo = CloudinaryField('image', default='default')
-    name = models.CharField(max_length=30)
-    # email = models.EmailField()
-    # user = models.OneToOneField(User, on_delete=models.CASCADE)
+    user = models.OneToOneField(User, on_delete=models.CASCADE, null=True)
+    linkedIn_url = models.CharField(max_length = 150, null=True, blank=True)
+    twitter_url = models.CharField(max_length = 150, null=True, blank=True)
+    website_url = models.CharField(max_length = 150, null=True, blank=True)
     
     def __str__(self):
-        #return f'{self.user.username} Profile'
-        return self.name
+        return str(self.user)

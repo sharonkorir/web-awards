@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from awards.models import Project, Profile
+from django.contrib.auth.models import User
 
 # Create your views here.
 def index(request):
@@ -22,3 +23,8 @@ def search_results(request):
     else:
         message = "You haven't searched for any term"
         return render(request, 'search.html',{"message":message})
+
+def user_profile(request):
+    profiles = Profile.objects.all()
+    users = User.objects.all()
+    return render(request, 'authenticate/user_profile.html', {'users':users, 'profiles':profiles})
