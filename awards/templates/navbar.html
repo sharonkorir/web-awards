@@ -16,9 +16,9 @@
         {% if request.user.is_authenticated %}
           <li><a href=""><i class="material-icons black-text">account_circle</i></a></li>
           <li><a href="{% url 'logout' %}"><i class="material-icons black-text">exit_to_app</i></a></li>
-          <li><a href=""><i class="material-icons black-text">add</i></a></li>
+          <li><a href="{% url 'create_project' %}"><i class="material-icons black-text">add</i></a></li>
         {% else %}
-          <li><a href=""><i class="material-icons black-text">add</i></a></li>
+          <li><a href="{% url 'create_project' %}"><i class="material-icons black-text">add</i></a></li>
           <li><a href="{% url 'login' %}"><i class="material-icons black-text">add</i>login</a></li>
           <li><a href="{% url 'register_user' %}"><i class="material-icons black-text">add</i>register</a></li>
         {% endif %}

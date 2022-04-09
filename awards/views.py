@@ -1,6 +1,7 @@
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 from awards.models import Project, Profile
 from django.contrib.auth.models import User
+from .forms import ProjectForm
 
 # Create your views here.
 def index(request):
@@ -24,7 +25,20 @@ def search_results(request):
         message = "You haven't searched for any term"
         return render(request, 'search.html',{"message":message})
 
+#test if user profiles are created on registration
 def user_profile(request):
     profiles = Profile.objects.all()
     users = User.objects.all()
     return render(request, 'authenticate/user_profile.html', {'users':users, 'profiles':profiles})
+
+def create_project(request):
+    form = ProjectForm()
+    if request.method == 'POST':
+        form = ProjectForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            return redirect('index')
+    else:
+        form = ProjectForm()
+
+    return render(request, 'projects/create_project.html', {'form':form})
