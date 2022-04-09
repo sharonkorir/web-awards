@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+{% block content %}
+  {{ block.super }}
+
+  <div class="container" style="padding-left: 100px; padding-right: 100px;padding-top: 100px;">
+  <div class="row" id="img-row" style="padding: 0px;">
+    <div class="card-panel hoverable white" id="card">
+      <!--card header-->
+      <div class="row" style="display: flex; align-items: center;">
+        <div class="card-image" style="height: 80px; width: 80px; padding: 10px;">
+          {% if project.profile.profile_photo %}
+            <img src="{{project.profile.userprofile.profile_photo.url}}" alt="" class="circle responsive-img" style="height: 100%; width: 100%; object-fit: cover;">
+          {% else %}
+            <img src="http://www.gravatar.com/avatar/?d=mp" alt="" class="circle responsive-img">
+          {% endif %}
+        </div> 
+        <p><b>{{project.profile}}</b></p></h5>   
+      </div>
+      <!--image-->
+      <div class="card-image" style="height: 600px; padding-top: 0px;">
+        
+          <img src="{{project.image.url}}" class="responsive-img" alt="Image" id="img">
+      
+      </div>
+      <!--footer-->
+      <div class="row" style="display: flex; align-items: center;">
+        <i class="material-icons" style="padding: 10px;">favorite_border</i>
+        <i class="material-icons"style="padding: 10px;">chat_bubble_outline</i>
+        <i class="material-icons"style="padding: 10px;">send</i>
+      </div>
+      <div style="padding-left: 10px; padding-right: 10px;">
+        <p><b>likes</b></p>
+      </div>
+      <div style="padding-left: 10px; padding-right: 10px; display: flex;">
+        <p style="padding-right: 5px;"><b>{{object.profile}}</b> </p>
+        <p> {{project.description}}</p>
+      </div>
+      <div class="grey-text" style="padding-left: 10px; padding-right: 10px;">
+        <p>{{project.date_posted|timesince}} ago</p>
+      </div>
+      <div>
+        {% if project.profile == user %}
+          <div style="padding-left: 10px;">
+            <a href="{% url 'post_update' pk=object.id %}"><i class="material-icons black-text">create</i></a>
+            <a href="{% url 'post_delete' pk=object.id %}"><i class="material-icons black-text">delete</i></a>
+          </div>
+        {% endif %}
+
+      </div>
+  
+    </div>
+  </div>
+{% endblock %}
+

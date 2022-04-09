@@ -27,7 +27,7 @@
       <div>
         <div class="row" style="display: flex;">
           <p style="padding-right: 10px;"><b>{{user.username}}</b></p>
-          {% if user == current_user %}
+          {% if user == request.user %}
           <p><a href="{% url 'update_profile' %}">Edit Profile</a></p>
           {% endif %}
         </div>

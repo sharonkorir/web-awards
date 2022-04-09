@@ -10,9 +10,9 @@ class Project(models.Model):
     title = models.CharField(max_length =60)
     description = models.TextField()
     image = CloudinaryField('image', default='default')
-    #owner = models.ForeignKey(User,on_delete=models.CASCADE)
     link = models.CharField(max_length =120)
     date_posted = models.DateTimeField(auto_now_add=True)
+    # user = models.ForeignKey(User,on_delete=models.CASCADE, null=True)
 
     def __str__(self):
         return self.title
@@ -21,6 +21,9 @@ class Project(models.Model):
     def search_project(cls,search_term):
         projects = cls.objects.filter(title__icontains=search_term)
         return projects
+    
+    class Meta:
+        ordering = ['-date_posted']
 
 
 class Profile(models.Model):
@@ -36,3 +39,26 @@ class Profile(models.Model):
     
     def __str__(self):
         return str(self.user)
+
+RATE_CHOICES = [
+  (1, '1'),
+  (2, '2'),
+  (3, '3'),
+  (4, '4'),
+  (5, '5'),
+  (6, '6'),
+  (7, '7'),
+  (8, '8'),
+  (9, '9'),
+  (10, '1o'),
+]
+
+class Rate(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    project = models.ForeignKey(Project, on_delete=models.CASCADE)
+    design = models.PositiveSmallIntegerField(choices=RATE_CHOICES)
+    content = models.PositiveSmallIntegerField(choices=RATE_CHOICES)
+    usability = models.PositiveSmallIntegerField(choices=RATE_CHOICES)
+
+    def __str__(self):
+        return self.user.username
