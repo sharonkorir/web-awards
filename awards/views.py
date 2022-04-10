@@ -53,8 +53,8 @@ def create_project(request):
 
     return render(request, 'projects/create_project.html', {'form':form})
 
-def rate_project(request, pk):
-    project = Project.objects.get(id=pk)
+def rate_project(request, title):
+    project = Project.objects.get(title=title)
     user = request.user
     print('testing', project, user)
 
@@ -68,7 +68,7 @@ def rate_project(request, pk):
             rate.save()
             print('test form save' ,rate)
             
-            return HttpResponseRedirect(reverse('project_details', args=pk))
+            return HttpResponseRedirect(reverse('project_details', args=title))
             
     else:
         form = RateForm()
