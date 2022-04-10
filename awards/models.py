@@ -6,7 +6,7 @@ class Profile(models.Model):
     '''
     Profile model acts as blueprint for all profile instances
     '''
-    bio = models.CharField(max_length =150)
+    bio = models.CharField(max_length =150, default='User has no bio yet')
     profile_photo = CloudinaryField('image', default='default')
     user = models.OneToOneField(User, on_delete=models.CASCADE, null=True)
     linkedIn_url = models.CharField(max_length = 150, null=True, blank=True)
@@ -63,4 +63,4 @@ class Rate(models.Model):
     usability = models.PositiveSmallIntegerField(choices=RATE_CHOICES)
 
     def __str__(self):
-        return self.user.username
+        return str(self.user)

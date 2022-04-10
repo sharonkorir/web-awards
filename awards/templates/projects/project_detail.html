@@ -20,48 +20,11 @@
       <!--image-->
       <div class="card-image" style="height: 600px; padding-top: 0px;">
         
-          <!-- <img src="{{project.image.url}}" class="responsive-img" alt="Image" id="img"> -->
+          <img src="{{project.image.url}}" class="responsive-img" alt="Image" id="img">
       
       </div>
-    
-      <!-- Modal Trigger -->
-      <a data-target="modal1{{project.id}}" class="modal-trigger teal">
-        <div class="card-image">
-          
-            vote
-          
-        </div>
-      </a>
-
-       <!-- Modal Structure -->
-       <div id="modal1{{project.id}}" class="modal">
-        <div class="modal-content">
-          <p>modal test</p>
-          <h5>Rate {{project.title}}</h5>
-          <form action="" method="POST">
-            {% csrf_token %}
-            {{form.as_p}}
-            <p class="range-field">
-              Design:
-              <input type="range" name="design" min="0" max="10" class="validate" />
-            </p>
-            <p class="range-field">
-              Content:
-              <input type="range" name="content" min="0" max="10" class="validate"/>
-            </p>
-            <p class="range-field">
-              Usability:
-              <input type="range" name="usability" min="0" max="10" class="validate"/>
-            </p> 
-            <div class="row">
-              <button type="submit" class=" waves-effect waves-light btn blue red" name="action">Rate {{project.title}}</button>
-            </div>
-          </form>
-        </div>
-        <div class="modal-footer">
-          <a href="#!" class="modal-close waves-effect waves-green btn-flat">Submit rate</a>
-        </div>
-      </div>  
+      <a href="{% url 'rate_project' project.pk %}">rate project</a>
+ 
 
       <div class="row" style="display: flex; align-items: center;">
         <i class="material-icons" style="padding: 10px;">favorite_border</i>
@@ -86,7 +49,7 @@
           </div>
         {% endif %}
       </div>
-      {% endfor %}
+    {% endfor %}
     </div>
   </div>
 {% endblock %}

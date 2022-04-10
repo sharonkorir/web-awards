@@ -1,5 +1,5 @@
-
-from django.http import JsonResponse
+from django.urls import reverse
+from django.http import HttpResponseRedirect, JsonResponse
 from django.shortcuts import render,redirect
 from awards.models import RATE_CHOICES, Project, Profile, Rate
 from django.contrib.auth.models import User
@@ -53,25 +53,22 @@ def create_project(request):
 
     return render(request, 'projects/create_project.html', {'form':form})
 
-def rate_project(request, id):
-    project = Project.objects.get(id=id)
+def rate_project(request, pk):
+    project = Project.objects.get(id=pk)
     user = request.user
+    print('testing', project, user)
 
     if request.method == 'POST':
-        form = RateForm(data = request.POST)
-        print(form)
+        form = RateForm(request.POST)
+        print('test form',form)
         if form.is_valid():
-            design = request.POST.get('design')
-            content = request.POST.get('content')
-            usability = request.POST.get('usability')
-            rate = Rate(design=design, content=content, usability=usability, project=project, user=user)
+            rate = form.save(commit=False)
             rate.user = user
             rate.project = project
             rate.save()
-            data = {'success': 'Your rate has been submitted'}
+            print('test form save' ,rate)
             
-            #return redirect('project_details', id)
-            return JsonResponse(data)
+            return HttpResponseRedirect(reverse('project_details', args=pk))
             
     else:
         form = RateForm()
@@ -81,4 +78,5 @@ def rate_project(request, id):
       'form':form,
       'project':project
     }
-    return render(request, 'project_detail.html', context)
+    print(user, project)
+    return render(request, 'projects/rate_project.html', context)

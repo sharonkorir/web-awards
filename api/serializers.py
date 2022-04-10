@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from awards.models import Profile, Project, Rate
+from awards.models import Profile, Project,Rate
 
 class ProfileSerializer(serializers.ModelSerializer):
     class Meta:
@@ -14,4 +14,4 @@ class ProjectSerializer(serializers.ModelSerializer):
 class RateSerializer(serializers.ModelSerializer):
     class Meta:
         model = Rate
-        fields = ('design', 'content', 'usability')
+        fields = '__all__'

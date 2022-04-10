@@ -9,11 +9,22 @@ class ProjectForm(ModelForm):
         model = Project
         fields = ('title', 'description', 'link', 'image')
 
-class RateForm(ModelForm):
-    design = forms.ChoiceField(choices=RATE_CHOICES, widget=forms.Select(), required=True)
-    content = forms.ChoiceField(choices=RATE_CHOICES, widget=forms.Select(), required=True)
-    usability = forms.ChoiceField(choices=RATE_CHOICES, widget=forms.Select(), required=True)
-
+class RateForm(forms.ModelForm):
+    design = forms.ChoiceField(
+        widget=forms.Select(attrs={'class': 'browser-default'}),
+        choices=RATE_CHOICES, 
+        required=True,
+    )
+    content = forms.ChoiceField(
+        widget=forms.Select(attrs={'class': 'browser-default'}),
+        choices=RATE_CHOICES, 
+        required=True,
+    )
+    usability = forms.ChoiceField(
+        widget=forms.Select(attrs={'class': 'browser-default'}),
+        choices=RATE_CHOICES, 
+        required=True,
+    )
     class Meta:
         model = Rate
         fields = ('design', 'content', 'usability')
