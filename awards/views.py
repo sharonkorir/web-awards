@@ -1,10 +1,10 @@
 from django.urls import reverse
-from django.http import HttpResponseRedirect, JsonResponse
+from django.http import HttpResponseRedirect
 from django.shortcuts import render,redirect
 from awards.models import Project, Profile, Rate
 from django.contrib.auth.models import User
 from .forms import ProjectForm, RateForm
-from django.db.models import Sum
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 def index(request):
@@ -50,6 +50,7 @@ def project_details(request, title):
 
     return render(request, 'projects/project_detail.html', {'project':project, 'rates':rates, 'content':content, 'design':design, 'usability':usability, 'average':average})
 
+@login_required()
 def create_project(request):
     form = ProjectForm()
     if request.method == 'POST':
@@ -62,6 +63,7 @@ def create_project(request):
 
     return render(request, 'projects/create_project.html', {'form':form})
 
+@login_required()
 def rate_project(request, title):
     project = Project.objects.get(title=title)
     user = request.user
