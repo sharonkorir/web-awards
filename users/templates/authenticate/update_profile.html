@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container-fluid">
+  <div class="row center-align" style="display: flex; justify-content: center; align-items: center; padding-top:50px;">
+    <div class="card-image" style="height: 250px; width: 250px; padding: 40px;">
+      {% if user.userprofile.profile_photo %}
+        <img src="{{user.userprofile.profile_photo.url}}" alt="" class="circle responsive-img" style="height: 100%; width: 100%; object-fit: cover;">
+      {% else %}
+        <img src="http://www.gravatar.com/avatar/?d=mp" alt="" class="circle responsive-img">
+      {% endif %}
+    </div>
+    <div>
+      <div class="row" style="display: flex;">
+        <p style="padding-right: 10px;"><b>{{user.username}}</b></p>
+      </div>
+      <div class="row" style="display: flex;">
+        <p style="padding-right: 10px;"><b>{{projects|length}}</b> projects </p>
+      </div>
+      <div class="row">
+        <p>{{user.profile.bio}}</p>
+      </div>
+    </div>
+  </div>  
+  <!--form-->
+  <div class="container">
+    <div class="row" style="padding-top: 50px;">
+      <div class="col s12 m2 l3"></div>
+      <div class="col s12 m8 l6" id="login">
+        <h6 class="instagram">Profile info</h6>
+        <form action="" method = 'POST' enctype="multipart/form-data" class="col s12">
+          {% csrf_token %}
+          
+          <!--render form fields as paragraph-->
+          {{ p_form.as_p }}
+          <button type="submit" class="col s12 waves-effect waves-light btn blue lighten-1">Update</button>
+        
+        </form>
+      </div>
+      <div class="col s12 m2 l3"></div>
+    </div> 
+  </div>
+  <!--footer-->
+  <div class="section center" style="color: #8c9395;">
+    <p>2022 web-awards</p>
+
+{% endblock %}

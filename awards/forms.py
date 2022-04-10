@@ -1,6 +1,6 @@
 from django import forms
 from django.forms import ModelForm
-from .models import Project, Rate, RATE_CHOICES
+from .models import Profile, Project, Rate, RATE_CHOICES
 
 class ProjectForm(ModelForm):
     link = forms.URLField()
@@ -28,3 +28,4 @@ class RateForm(forms.ModelForm):
     class Meta:
         model = Rate
         fields = ('design', 'content', 'usability')
+
