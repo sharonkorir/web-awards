@@ -3,6 +3,7 @@ from django.forms import ModelForm
 from .models import Project, Rate, RATE_CHOICES
 
 class ProjectForm(ModelForm):
+    link = forms.URLField()
 
     class Meta:
         model = Project

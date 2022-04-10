@@ -1,4 +1,5 @@
 
+from django.http import JsonResponse
 from django.shortcuts import render,redirect
 from awards.models import RATE_CHOICES, Project, Profile, Rate
 from django.contrib.auth.models import User
@@ -57,18 +58,24 @@ def rate_project(request, id):
     user = request.user
 
     if request.method == 'POST':
-        form = RateForm(request.POST)
+        form = RateForm(data = request.POST)
+        print(form)
         if form.is_valid():
-            design = form.cleaned_data['design']
-            rate = form.save(commit=False)
+            design = request.POST.get('design')
+            content = request.POST.get('content')
+            usability = request.POST.get('usability')
+            rate = Rate(design=design, content=content, usability=usability, project=project, user=user)
             rate.user = user
             rate.project = project
             rate.save()
-            print('test' ,rate.user)
-            return redirect('project_details', id)
+            data = {'success': 'Your rate has been submitted'}
+            
+            #return redirect('project_details', id)
+            return JsonResponse(data)
             
     else:
         form = RateForm()
+        print('request is not POST')
 
     context = {
       'form':form,

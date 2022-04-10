@@ -46,3 +46,8 @@
   </div>
   
 {% endblock %}
+<!--connect js-->
+{% block scripts %} 
+{{block.super}}
+  <script type="text/javascript" src="{%static 'js/scripts.js'%}"></script>
+{% endblock %}
