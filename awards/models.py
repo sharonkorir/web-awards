@@ -2,6 +2,7 @@ from django.db import models
 from cloudinary.models import CloudinaryField
 from django.contrib.auth.models import User
 
+
 class Profile(models.Model):
     '''
     Profile model acts as blueprint for all profile instances
@@ -64,3 +65,36 @@ class Rate(models.Model):
 
     def __str__(self):
         return str(self.user)
+
+    @classmethod
+    def find_sum(cls,title):
+        rates = cls.objects.filter(project__title=title)
+        design_list = []
+        content_list = []
+        usability_list = []
+    
+        for rate in rates:
+            design_list.append(rate.design)
+            content_list.append(rate.content)
+            usability_list.append(rate.usability)
+            
+
+        design_sum = sum(design_list)
+        content_sum = sum(content_list)
+        usability_sum = sum(usability_list)
+        users = len(design_list)
+
+        design = design_sum/users
+        content = content_sum/users
+        usability = usability_sum/users
+
+        design = int(round(design))
+        content = int(round(content))
+        usability = int(round(usability))
+
+        average_score = (design + content + usability)/3
+
+        average_score = int(round(average_score))
+
+        print(design, content, usability, average_score)
+        return design, content, usability, average_score

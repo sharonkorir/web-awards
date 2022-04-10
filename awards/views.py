@@ -1,9 +1,10 @@
 from django.urls import reverse
 from django.http import HttpResponseRedirect, JsonResponse
 from django.shortcuts import render,redirect
-from awards.models import RATE_CHOICES, Project, Profile, Rate
+from awards.models import Project, Profile, Rate
 from django.contrib.auth.models import User
 from .forms import ProjectForm, RateForm
+from django.db.models import Sum
 
 # Create your views here.
 def index(request):
@@ -39,7 +40,15 @@ def user_profile(request, username):
 
 def project_details(request, title):
     project = Project.objects.filter(title = title)
-    return render(request, 'projects/project_detail.html', {'project':project})
+    rates = Rate.objects.filter(project__title = title)
+    averages = Rate.find_sum(title)
+    design = averages[0]
+    content = averages[1]
+    usability = averages[2]
+    average = averages[3]
+
+
+    return render(request, 'projects/project_detail.html', {'project':project, 'rates':rates, 'content':content, 'design':design, 'usability':usability, 'average':average})
 
 def create_project(request):
     form = ProjectForm()

@@ -15,7 +15,13 @@
             <img src="http://www.gravatar.com/avatar/?d=mp" alt="" class="circle responsive-img">
           {% endif %}
         </div> 
-        <p><b>{{project.title}}</b></p></h5>   
+        <p><b>{{project.title}}</b></p> 
+        {% for rate in rates %}
+          Design: {{rate.design}}
+        {% endfor %} 
+        
+        <p>{{averages}}</p>
+        <p>Design:{{design}}</p>
       </div>
       <!--image-->
       <div class="card-image" style="height: 600px; padding-top: 0px;">
