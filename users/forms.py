@@ -18,11 +18,3 @@ class RegisterUserForm(UserCreationForm):
         self.fields['password1'].widget.attrs['class'] = 'input-field col s12'
         self.fields['password2'].widget.attrs['class'] = 'input-field col s12'
 
-class ProfileUpdateForm(forms.ModelForm):
-    '''
-    Form that inherits from the django ModelForm and allows user to update their profile
-    '''
-
-    class Meta:
-        model = Profile
-        fields = ['profile_photo', 'bio', 'linkedIn_url', 'twitter_url', 'website_url']

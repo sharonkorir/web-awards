@@ -1,0 +1,23 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Teko:wght@500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Chonburi&display=swap');
+
+.navbar-wrapper{
+  background-color: 
+  #426c79;
+}
+
+body{
+  background-color: #f3e2dd;
+}
+
+.brand-logo{
+  font-family: 'Chonburi', cursive;
+  font-size: 20px;
+}
+
+#random{
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 600px;
+}

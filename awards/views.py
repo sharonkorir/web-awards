@@ -1,16 +1,21 @@
+from multiprocessing import context
 from django.urls import reverse
-from django.http import HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render,redirect
 from awards.models import Project, Profile, Rate
 from django.contrib.auth.models import User
-from .forms import ProjectForm, RateForm
+from .forms import ProjectForm, RateForm, ProfileUpdateForm
 from django.contrib.auth.decorators import login_required
+from django.contrib import messages
+import requests
 
 # Create your views here.
 def index(request):
   projects = Project.objects.all()
+  random = Project.get_random()
   context = {
-    'projects':projects
+    'projects':projects,
+    'random':random
   }
   return render(request,'index.html', context)
 
@@ -38,7 +43,7 @@ def user_profile(request, username):
     users = User.objects.all()
     return render(request, 'authenticate/user_profile.html', {'users':users, 'profiles':profiles})
 
-def project_details(request, title):
+def project_details( title):
     project = Project.objects.filter(title = title)
     rates = Rate.objects.filter(project__title = title)
     averages = Rate.find_sum(title)
@@ -47,8 +52,15 @@ def project_details(request, title):
     usability = averages[2]
     average = averages[3]
 
+    context = {
+      "design": design,
+      "project": project,
+      "content": content,
+      "usability": usability,
+      "average": average,
+    }
 
-    return render(request, 'projects/project_detail.html', {'project':project, 'rates':rates, 'content':content, 'design':design, 'usability':usability, 'average':average})
+    return render( 'projects/project_detail.html', context)
 
 @login_required()
 def create_project(request):
@@ -91,3 +103,30 @@ def rate_project(request, title):
     }
     print(user, project)
     return render(request, 'projects/rate_project.html', context)
+
+def update_profile(request, username):
+    '''
+    returns user profile if user is authenticated
+    '''
+    if request.method == 'POST':
+        p_form = ProfileUpdateForm(request.POST, request.FILES, instance=request.user.profile)
+
+        if p_form.is_valid():
+            p_form.save()
+            #fetch projects
+            projects = Project.objects.filter(profile__user=request.user)
+            #succesful update message
+            messages.success(request, f'Your account has been updated')
+            # return redirect('profile')
+            return render(request,'authenticate/user_profile.html', {'projects':projects})
+            # return HttpResponseRedirect(reverse('user_profile', args=username))
+            
+    else:
+        p_form = ProfileUpdateForm(request.POST, instance=request.user.profile)
+
+    context = {
+      'p_form': p_form,
+      'projects': Project.objects.filter(profile__user = request.user)
+    }
+
+    return render(request, 'authenticate/update_profile.html', context)

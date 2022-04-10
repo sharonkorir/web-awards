@@ -1,7 +1,7 @@
 <div class="navbar-fixed">
-  <nav>
-    <div class="nav-wrapper">
-      <a href="{% url 'index' %}" class="brand-logo left black-text">web-awards</a>
+  <nav >
+    <div class="nav-wrapper teal darken-4" style="padding-bottom: 0;">
+      <a href="{% url 'index' %}" class="brand-logo left white-text">web-awards</a>
       <ul class="right">
         <li>
           <!--search for projects-->
@@ -12,15 +12,15 @@
           </form>
         </li>
         <!--navbar icons-->
-        <li><a href="/"><i class="material-icons black-text">home</i></a></li>
+        <li><a href="/"><i class="material-icons white-text">home</i></a></li>
         {% if request.user.is_authenticated %}
-          <li><a href="{% url 'user_profile' request.user.profile %}"><i class="material-icons black-text">account_circle</i></a></li>
-          <li><a href="{% url 'logout' %}"><i class="material-icons black-text">exit_to_app</i></a></li>
-          <li><a href="{% url 'create_project' %}"><i class="material-icons black-text">add</i></a></li>
+          <li><a href="{% url 'user_profile' request.user.profile %}"><i class="material-icons white-text">account_circle</i></a></li>
+          <li><a href="{% url 'logout' %}"><i class="material-icons white-text">exit_to_app</i></a></li>
+          <li><a href="{% url 'create_project' %}"><i class="material-icons white-text">add</i></a></li>
         {% else %}
-          <li><a href="{% url 'create_project' %}"><i class="material-icons black-text">add</i></a></li>
-          <li><a href="{% url 'login' %}"><i class="material-icons black-text">add</i>login</a></li>
-          <li><a href="{% url 'register_user' %}"><i class="material-icons black-text">add</i>register</a></li>
+          <li><a href="{% url 'create_project' %}"><i class="material-icons white-text ">add</i></a></li>
+          <li><a href="{% url 'login' %}">login</a></li>
+          <li><a href="{% url 'register_user' %}" class="teal darken-3">register</a></li>
         {% endif %}
       </ul>
     </div>

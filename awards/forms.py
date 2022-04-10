@@ -29,3 +29,11 @@ class RateForm(forms.ModelForm):
         model = Rate
         fields = ('design', 'content', 'usability')
 
+class ProfileUpdateForm(forms.ModelForm):
+    '''
+    Form that inherits from the django ModelForm and allows user to update their profile
+    '''
+
+    class Meta:
+        model = Profile
+        fields = ['profile_photo', 'bio', 'linkedIn_url', 'twitter_url', 'website_url']

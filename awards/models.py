@@ -1,6 +1,7 @@
 from django.db import models
 from cloudinary.models import CloudinaryField
 from django.contrib.auth.models import User
+import random
 
 
 class Profile(models.Model):
@@ -15,7 +16,7 @@ class Profile(models.Model):
     website_url = models.CharField(max_length = 150, null=True, blank=True)
     
     def __str__(self):
-        return str(self.user)
+        return str(self.user.username)
 
 
 # Create your models here.
@@ -40,6 +41,12 @@ class Project(models.Model):
     
     class Meta:
         ordering = ['-date_posted']
+
+    @classmethod
+    def get_random(cls):
+        projects = cls.objects.all()
+        random_project = random.choice(projects)
+        return random_project
 
 
 

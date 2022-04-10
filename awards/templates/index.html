@@ -2,7 +2,25 @@
 {% block content %}
   {{block.super}}
 
-  <div class="container" style="padding-left: 100px; padding-right: 100px;padding-top: 100px;">
+  <div class="container-fluid">
+    <div class="row" style="background-image: url({{random.image.url}});" id="random">
+      <a href="{% url 'project_details' random.title %}">
+        <!-- <img src="{{random.image.url}}" alt=""> -->
+      </a>
+        <h5>Popular site:</h5>
+        <h3>{{random.title}}</h3>
+        <h5>By:{{random.profile.user}}</h5>
+        <div class="row" id="scores">
+          <ul>
+            <li>Design{{design}}</li>
+            <li>Content{{content}}</li>
+            <li>Usability{{usability}}</li>
+            <li>Average Score{{average}}</li>
+          </ul>
+        </div>
+    </div>
+  </div>
+    <div class="container" style="padding-left: 100px; padding-right: 100px;padding-top: 100px;">
   {% for project in projects %}
     <div class="row" id="img-row" style="padding: 0px;">
         <div class="card-panel hoverable white" id="card">
