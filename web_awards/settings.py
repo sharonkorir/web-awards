@@ -85,9 +85,11 @@ WSGI_APPLICATION = 'web_awards.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'web_awards',
-        'USER': 'sharon',
-        'PASSWORD': '12345678'
+        'NAME': 'd524lb5gg4smb',
+        'USER': 'xhqlklkoihiyql',
+        'PASSWORD': 'f87611dd42fb5844bcb933098b60ea85dab7944d7c5344d026d08c908c00cc91',
+        'HOST': 'ec2-52-18-116-67.eu-west-1.compute.amazonaws.com',
+        'PORT' : 5432
     }
 }
 
