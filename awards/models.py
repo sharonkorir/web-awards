@@ -74,6 +74,12 @@ class Rate(models.Model):
         return str(self.user)
 
     @classmethod
+    def get_rate_count(cls,pk):
+        rates = cls.objects.filter(project=pk)
+        count = len(rates)
+        return count
+
+    @classmethod
     def find_sum(cls,pk):
         rates = cls.objects.filter(project=pk)
         print('test rate', rates)
@@ -83,27 +89,33 @@ class Rate(models.Model):
         
     
         for rate in rates:
-            design_list.append(rate.design)
-            content_list.append(rate.content)
-            usability_list.append(rate.usability)
+            print('test rate len' ,len(rates))
+            if len(rates) > 0:
+                design_list.append(rate.design)
+                content_list.append(rate.content)
+                usability_list.append(rate.usability)
             
+            else:
+                design_list.append(0)
+                content_list.append(0)
+                usability_list.append(0)
 
-        design_sum = sum(design_list)
-        content_sum = sum(content_list)
-        usability_sum = sum(usability_list)
-        users = len(design_list)
+            design_sum = sum(design_list)
+            content_sum = sum(content_list)
+            usability_sum = sum(usability_list)
+            users = len(design_list)
 
-        design = design_sum/users
-        content = content_sum/users
-        usability = usability_sum/users
+            design = design_sum/users
+            content = content_sum/users
+            usability = usability_sum/users
 
-        design = int(round(design))
-        content = int(round(content))
-        usability = int(round(usability))
+            design = int(round(design))
+            content = int(round(content))
+            usability = int(round(usability))
 
-        average_score = (design + content + usability)/3
+            average_score = (design + content + usability)/3
 
-        average_score = int(round(average_score))
+            average_score = int(round(average_score))
 
-        print(design, content, usability, average_score)
-        return design, content, usability, average_score
+            print(design, content, usability, average_score)
+            return design, content, usability, average_score

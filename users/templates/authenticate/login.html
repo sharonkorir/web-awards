@@ -1,24 +1,42 @@
 {% extends 'authenticate/base.html' %}
 {% block content %}
   {{block.super}}
-  <div class="row">
-    <form class="col s12 z-depth-3" method="POST" action="">
-      {% csrf_token %}
-      <div class="row">
-        <div class="input-field col s12">
-          <input id="username" type="text" class="validate" name="username">
-          <label for="email">Username</label>
-        </div>
+  <div class="container" style="padding-left: 200px; padding-right: 200px;">
+    <div class="row2" style="padding-top: 200px;">
+      
+      <div class="col s12" id="login">
+        <form class="input-field col s12 z-depth-3 white" method="POST" action="" style="padding: 40px;">
+          <h5>Login</h5>
+            {% csrf_token %}
+            
+            <div class="input-field col s12">
+              <input id="username" type="text" class="validate" name="username">
+              <label for="email">Username</label>
+            </div>
+            
+            
+            <div class="input-field col s12">
+              <input id="password" type="password" class="validate" name="password">
+              <label for="password">Password</label>
+            </div>
+          
+          
+            <button type="submit" class=" waves-effect waves-light btn teal darken-4">Login</button>
+          </form>
       </div>
-      <div class="row">
-        <div class="input-field col s12">
-          <input id="password" type="password" class="validate" name="password">
-          <label for="password">Password</label>
-        </div>
+    </div> 
+    <div class="row2">
+      
+      <div class="col s12" id="login2">
+        <p>Don't have an account? <a href="{% url 'register_user' %}"><strong class="teal-text">Sign up</strong></a></p>
       </div>
-      <div class="row">
-        <button type="submit" class=" waves-effect waves-light btn blue red">Login</button>
-      </div>
-    </form>
+     
+    </div>
+
+  </div>
+</div>
+  <!--footer-->
+  <div class="section center" style="color: #8c9395;">
+    <p>2022 web-awards</p>
   </div>
 {% endblock %}

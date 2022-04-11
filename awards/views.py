@@ -63,21 +63,26 @@ def user_profile(request, username):
 
 def project_details(request, pk):
     project = Project.objects.filter(pk = pk)
-    rates = Rate.objects.filter(project = project)
-    
-    averages = Rate.find_sum(pk)
-    design = averages[0]
-    content = averages[1]
-    usability = averages[2]
-    average = averages[3]
-    context = {
-        'project':project,
-        'design': design,
-        'content': content,
-        'usability': usability,
-        'average': average,
-        'project': project
-      }
+    rates = Rate.get_rate_count(pk)
+    if rates > 0:
+        
+        averages = Rate.find_sum(pk)
+        design = averages[0]
+        content = averages[1]
+        usability = averages[2]
+        average = averages[3] 
+        context = {
+          'project':project,
+          'design': design,
+          'content': content,
+          'usability': usability,
+          'average': average,
+        }
+    else:
+        context = {
+          'project':project,
+          'average' : average
+        }
 
     return render(request, 'projects/project_detail.html', context)
 
