@@ -1,16 +1,19 @@
 {% extends 'base.html' %}
 {% block content %}
   {{block.super}}
-  <div class="row">
-    <form class="col s12 z-depth-3" method="POST" enctype="multipart/form-data">
-      {% csrf_token %}
-      <div class="row">
-        {{form}}
-      </div>
-
-      <div class="row">
-        <button type="submit" class=" waves-effect waves-light btn blue red">Upload project</button>
-      </div>
-    </form>
+  <div class="container" style="padding-top: 150px;">
+    <div class="row">
+      <form class="col s12 z-depth-3 white" method="POST" enctype="multipart/form-data" style="padding: 20px;">
+        {% csrf_token %}
+        <h5>Submit your project</h5>
+        <div class="row">
+          {{form}}
+        </div>
+  
+        <div class="row center-align">
+          <button type="submit" class=" waves-effect waves-light btn teal darken-4">Upload project</button>
+        </div>
+      </form>
+    </div>
   </div>
 {% endblock %}

@@ -1,10 +1,10 @@
 {% extends 'authenticate/base.html' %}
 {% block content %}
   {{block.super}}
-  <div class="row">
+  <div class="container" style="padding-top: 150px;">
     <div class="row">
-      <form class="col s12 z-depth-3" method="POST" action="" role="form">
-        <h5>Rate {{project.title}}</h5>
+      <form class="col s12 z-depth-3 white" method="POST" action="" role="form">
+        <h5>Rate <span class="orange-text">{{project.title}}</span></h5>
         {% csrf_token %}
         <div class="row" style="display: flex;">
           <div class="input-field col s12 browser-default">
@@ -21,16 +21,9 @@
             Usability: {{form.usability}}
           </div>
         </div>
-        <div class="row">
-          <button type="submit" name="action" class=" waves-effect waves-light btn blue red">Login</button>
+        <div class="row center-align">
+          <button type="submit" name="action" class=" waves-effect waves-light btn teal darken-4">Vote</button>
         </div>
       </form>
   </div>
-  <script>
-   $(document).ready(function() {
-    $('select').material_select();
-      // Old way
-      // $('select').material_select();
-    }); 
-  </script>
 {% endblock %}

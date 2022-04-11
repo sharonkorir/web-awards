@@ -2,9 +2,8 @@
 {% block content %}
   {{ block.super }}
 
-  <div class="container" style="padding-left: 100px; padding-right: 100px;padding-top: 100px;">
-  <div class="row" id="img-row" style="padding: 0px;">
-    <div class="card-panel hoverable white" id="card">
+  <div class="container" style="padding-top: 100px;">
+    <div class="card-panel hoverable white" id="card2">
       {% for project in project %}
       <!--votes-->
       <div class="row center-align" style="display: flex; justify-content: center; align-items: center;">
@@ -31,14 +30,15 @@
       </div>
       <!--details-->
       <div style="padding-left: 20px; padding-right: 20px;">
-        <p><b>{{project.title|upper}}</b> by: <a href="{% url 'user_profile' project.profile %}" class="orange-text">{{project.profile.user.username}}</a></p>
+        <a href="{{project.link}}" class="teal-text"><h5><b>{{project.title|upper}}</b></h5></a> by: <a href="{% url 'user_profile' project.profile %}" class="orange-text">{{project.profile.user.username}}</a></p>
         <p> {{project.description}}</p>
         <p class="grey-text">{{project.date_posted|timesince}} ago</p>
       </div>
       <!--vote-->
-      <button type="submit" class=" col s12 waves-effect waves-light btn orange lighten-2"><a href="{% url 'rate_project' project.pk %}" class="white-text">rate project</a></button>
+      <div class="container-fluid">
+        <button type="submit" class=" col s12 waves-effect waves-light btn orange lighten-2"><a href="{% url 'rate_project' project.pk %}" class="white-text">rate project</a></button>
+      </div>
     </div>
     {% endfor %}
-  </div>
 {% endblock %}
 

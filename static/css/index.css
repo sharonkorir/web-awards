@@ -70,3 +70,8 @@ body{
 #img-row{
   padding: 40px;
 }
+
+#random-project{
+  opacity: 80%;
+  width: 500px;
+}

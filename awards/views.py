@@ -58,7 +58,8 @@ def search_results(request):
 def user_profile(request, username):
     profiles = Profile.objects.filter(user__username = username)
     users = User.objects.all()
-    return render(request, 'authenticate/user_profile.html', {'users':users, 'profiles':profiles})
+    projects = Project.objects.filter(profile=profiles)
+    return render(request, 'authenticate/user_profile.html', {'users':users, 'profiles':profiles, 'projects':projects})
 
 def project_details(request, pk):
     project = Project.objects.filter(pk = pk)
