@@ -30,7 +30,7 @@
       </div>
       <!--details-->
       <div style="padding-left: 20px; padding-right: 20px;">
-        <a href="{{project.link}}" class="teal-text"><h5><b>{{project.title|upper}}</b></h5></a> by: <a href="{% url 'user_profile' project.profile %}" class="orange-text">{{project.profile.user.username}}</a></p>
+        <a href="{{project.link}}" class="teal-text"><h5><b>{{project.title|upper}}</b></h5></a> by: <a href="{% url 'user_profile' project.profile.pk %}" class="orange-text">{{project.profile.user.username}}</a></p>
         <p> {{project.description}}</p>
         <p class="grey-text">{{project.date_posted|timesince}} ago</p>
       </div>

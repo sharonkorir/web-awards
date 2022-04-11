@@ -4,14 +4,14 @@
   <!--random project-->
   <div class="container-fluid">
     <div class="row" id="random" style="background-image: url({{random.image.url}});">
-      <a href="{% url 'project_details' pk=random.pk %}">
+      
         <img src="" alt="">
       </a>
       <div class="centered vertical-align">
         <div class="container white" id="random-project" style="padding: 10px;">
           <div class="row center-align">
             <h5>Random project of day:</h5>
-            <h4 class="teal-text"><strong>{{random.title}}</strong></h4></a>
+            <a href="{% url 'project_details' pk=random.pk %}"><h4 class="teal-text"><strong>{{random.title}}</strong></h4></a>
             <h5>By: {{random.profile.user}}</h5>
           </div>
           <!--votes-->

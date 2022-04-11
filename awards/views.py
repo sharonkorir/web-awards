@@ -54,10 +54,10 @@ def search_results(request):
         return render(request, 'search.html',{"message":message})
 
 #test if user profiles are created on registration
-def user_profile(request, username):
-    profiles = Profile.objects.filter(user__username = username)
+def user_profile(request, pk):
+    profiles = Profile.objects.filter(user = pk)
     users = User.objects.all()
-    projects = Project.objects.filter(profile__user__username=username)
+    projects = Project.objects.filter(profile=pk)
     return render(request, 'authenticate/user_profile.html', {'users':users, 'profiles':profiles, 'projects':projects})
 
 def project_details(request, pk):
@@ -133,6 +133,7 @@ def update_profile(request, username):
     '''
     if request.method == 'POST':
         p_form = ProfileUpdateForm(request.POST, request.FILES, instance=request.user.profile)
+      
 
         if p_form.is_valid():
             p_form.save()
@@ -149,7 +150,8 @@ def update_profile(request, username):
 
     context = {
       'p_form': p_form,
-      'projects': Project.objects.filter(profile__user = request.user)
+      'projects': Project.objects.filter(profile__user = request.user),
+      'current_user': request.user
     }
 
     return render(request, 'authenticate/update_profile.html', context)

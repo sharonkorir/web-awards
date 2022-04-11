@@ -33,6 +33,12 @@
         <div class="row">
           <p>{{user.profile.bio}}</p>
         </div>
+        {% if user == request.user %}
+        <div class="row" style="display: flex;">
+          <p style="padding-right: 10px;"><b>{{user.user.username}}</b></p>
+          <p><a href="{% url 'update_profile' user.pk %}">Edit Profile</a></p>
+        {% endif %}
+        </div>
       </div>
     </div> 
   </div> 
