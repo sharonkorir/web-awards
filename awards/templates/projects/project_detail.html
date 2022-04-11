@@ -16,11 +16,8 @@
           {% endif %}
         </div> 
         <p><b>{{project.title}}</b></p> 
-        {% for rate in rates %}
-          Design: {{rate.design}}
-        {% endfor %} 
         
-        <p>{{averages}}</p>
+        Average:<p>{{averages}}</p>
         <p>Design:{{design}}</p>
       </div>
       <!--image-->
@@ -29,7 +26,7 @@
           <img src="{{project.image.url}}" class="responsive-img" alt="Image" id="img">
       
       </div>
-      <a href="{% url 'rate_project' project.title %}">rate project</a>
+      <a href="{% url 'rate_project' project.pk %}">rate project</a>
  
 
       <div class="row" style="display: flex; align-items: center;">

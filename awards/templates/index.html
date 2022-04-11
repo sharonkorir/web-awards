@@ -1,14 +1,11 @@
 {% extends 'base.html' %}
 {% block content %}
   {{block.super}}
-
+  <!--random project-->
   <div class="container-fluid">
     <div class="row" style="background-image: url({{random.image.url}});" id="random">
-      <a href="{% url 'project_details' random.title %}">
-        <!-- <img src="{{random.image.url}}" alt=""> -->
-      </a>
         <h5>Popular site:</h5>
-        <h3>{{random.title}}</h3>
+        <a href="{% url 'project_details' random.pk %}"><h3>{{random.title}}</h3></a>
         <h5>By:{{random.profile.user}}</h5>
         <div class="row" id="scores">
           <ul>
@@ -20,47 +17,22 @@
         </div>
     </div>
   </div>
-    <div class="container" style="padding-left: 100px; padding-right: 100px;padding-top: 100px;">
-  {% for project in projects %}
-    <div class="row" id="img-row" style="padding: 0px;">
-        <div class="card-panel hoverable white" id="card">
-          <!--card header-->
-          <div class="row" style="display: flex; align-items: center;">
-            <div class="card-image" style="height: 80px; width: 80px; padding: 10px;">
-              {% if project.user.profile.profile_photo %}
-                <img src="{{project.user.profile.profile_photo.url}}" alt="" class="circle responsive-img" style="height: 100%; width: 100%; object-fit: cover;">
-              {% else %}
-                <img src="http://www.gravatar.com/avatar/?d=mp" alt="" class="circle responsive-img">
-              {% endif %}
-            </div> 
-            <a href="">   
-            <p><b>{{project.user}}</b></p></a>
-          </div>
-          <!--project details path-->
-          <div class="card-image" style="height: 600px; padding-top: 0px;">
-            <a href="{% url 'project_details' project.title %}">
-              <img src="{{project.image.url}}" class="responsive-img" alt="Image" id="img">
-            </a>
-          </div>
-          <!--footer-->
-          <div class="row" style="display: flex; align-items: center;">
-            <i class="material-icons" style="padding: 10px;">favorite_border</i>
-            <a href=""><i class="material-icons"style="padding: 10px;">chat_bubble_outline</i></a>
-            <i class="material-icons"style="padding: 10px;">send</i>
-          </div>
-          <div style="padding-left: 10px; padding-right: 10px;">
-            <p><b>likes</b></p>
-          </div>
-          <div style="padding-left: 10px; padding-right: 10px; display: flex;">
-            <p style="padding-right: 5px;"><b>{{project.user}}</b> </p>
-            <p> {{project.title}}</p>
-          </div>
-          <div class="grey-text" style="padding-left: 10px; padding-right: 10px;">
-            <p>{{project.date_posted|timesince}} ago</p>
+  <!--all projects-->
+  <div class="container" style="padding-left: 100px; padding-right: 100px;padding-top: 100px;">
+    <div class="divider"></div>
+    <div class="row center-align" style="display: flex; justify-content: center; align-items: center;">
+      {% for project in projects %}
+        <div class="col s12" style="padding: 0px;" >
+          <div class="card-panel hoverable white" id="card">
+            <div class="card-image">
+              <a href="{% url 'project_details' project.pk %}">
+                <img src="{{project.image.url}}" class="responsive-img" alt="Image" id="img">
+              </a>
+            </div>
           </div>
         </div>
-      </div>
-    {% endfor %}
+      {% endfor %}
+    </div>
   </div>
 
 {% endblock %}

@@ -1,4 +1,4 @@
-from multiprocessing import context
+
 from django.urls import reverse
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render,redirect
@@ -13,9 +13,27 @@ import requests
 def index(request):
   projects = Project.objects.all()
   random = Project.get_random()
+  rates = Rate.objects.filter(project=random)
+  if rates:
+      averages = Rate.find_sum(random.pk)
+      design = averages[0]
+      content = averages[1]
+      usability = averages[2]
+      average = averages[3]
+
+      context = {
+        'projects':projects,
+        'random':random,
+        "design": design,
+        "content": content,
+        "usability": usability,
+        "average": average,
+      }
+      pass
+ 
   context = {
     'projects':projects,
-    'random':random
+    'random':random,
   }
   return render(request,'index.html', context)
 
@@ -43,24 +61,25 @@ def user_profile(request, username):
     users = User.objects.all()
     return render(request, 'authenticate/user_profile.html', {'users':users, 'profiles':profiles})
 
-def project_details( title):
-    project = Project.objects.filter(title = title)
-    rates = Rate.objects.filter(project__title = title)
-    averages = Rate.find_sum(title)
+def project_details(request, pk):
+    project = Project.objects.filter(pk = pk)
+    rates = Rate.objects.filter(project = project)
+    
+    averages = Rate.find_sum(pk)
     design = averages[0]
     content = averages[1]
     usability = averages[2]
     average = averages[3]
-
     context = {
-      "design": design,
-      "project": project,
-      "content": content,
-      "usability": usability,
-      "average": average,
-    }
+        'project':project,
+        'design': design,
+        'content': content,
+        'usability': usability,
+        'average': average,
+        'project': project
+      }
 
-    return render( 'projects/project_detail.html', context)
+    return render(request, 'projects/project_detail.html', context)
 
 @login_required()
 def create_project(request):
@@ -76,8 +95,8 @@ def create_project(request):
     return render(request, 'projects/create_project.html', {'form':form})
 
 @login_required()
-def rate_project(request, title):
-    project = Project.objects.get(title=title)
+def rate_project(request, pk):
+    project = Project.objects.get(id=pk)
     user = request.user
     print('testing', project, user)
 
@@ -91,7 +110,7 @@ def rate_project(request, title):
             rate.save()
             print('test form save' ,rate)
             
-            return HttpResponseRedirect(reverse('project_details', args=title))
+            return HttpResponseRedirect(reverse('project_details', args=pk))
             
     else:
         form = RateForm()

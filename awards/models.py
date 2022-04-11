@@ -74,11 +74,13 @@ class Rate(models.Model):
         return str(self.user)
 
     @classmethod
-    def find_sum(cls,title):
-        rates = cls.objects.filter(project__title=title)
+    def find_sum(cls,pk):
+        rates = cls.objects.filter(project=pk)
+        print('test rate', rates)
         design_list = []
         content_list = []
         usability_list = []
+        
     
         for rate in rates:
             design_list.append(rate.design)
