@@ -9,6 +9,7 @@
 
 body{
   background-color: #fff3e0 ;
+  font-family: Arial, Helvetica, sans-serif;
 }
 
 .brand-logo{
@@ -63,7 +64,7 @@ body{
 
 #card{
   padding: 0px;
-  margin: 10px;
+  margin: 20px;
 }
 
 #img-row{

@@ -5,55 +5,40 @@
   <div class="container" style="padding-left: 100px; padding-right: 100px;padding-top: 100px;">
   <div class="row" id="img-row" style="padding: 0px;">
     <div class="card-panel hoverable white" id="card">
-      <!--card header-->
-      <div class="row" style="display: flex; align-items: center;">
-        <div class="card-image" style="height: 80px; width: 80px; padding: 10px;">
-        {% for project in project %}
-          {% if project.profile.profile_photo %}
-            <img src="{{project.profile.profile_photo.url}}" alt="" class="circle responsive-img" style="height: 100%; width: 100%; object-fit: cover;">
-          {% else %}
-            <img src="http://www.gravatar.com/avatar/?d=mp" alt="" class="circle responsive-img">
-          {% endif %}
-        </div> 
-        <p><b>{{project.title}}</b></p> 
-        
-        Average:<p>{{averages}}</p>
-        <p>Design:{{design}}</p>
-      </div>
+      {% for project in project %}
+      <!--votes-->
+      <div class="row center-align" style="display: flex; justify-content: center; align-items: center;">
+        <div class="circle2">
+          <p><strong>Design:</strong></p>
+          <p><strong>{{design}}</strong></p> 
+        </div>
+        <div class="circle2">
+          <p><strong>Content:</strong></p>
+          <p><strong>{{content}}</strong></p> 
+        </div>
+        <div class="circle2">
+          <p><strong>Usability:</strong> </p>
+          <p><strong>{{usability}}</strong></p> 
+        </div>
+        <div class="circle2">
+          <p><strong>Average:</strong> </p>
+          <p><strong>{{average}}</strong></p> 
+        </div>
+      </div> 
       <!--image-->
-      <div class="card-image" style="height: 600px; padding-top: 0px;">
-        
+      <div class="card-image" style="height: 450px; padding: 20px;">
           <img src="{{project.image.url}}" class="responsive-img" alt="Image" id="img">
-      
       </div>
-      <a href="{% url 'rate_project' project.pk %}">rate project</a>
- 
-
-      <div class="row" style="display: flex; align-items: center;">
-        <i class="material-icons" style="padding: 10px;">favorite_border</i>
-        <i class="material-icons"style="padding: 10px;">chat_bubble_outline</i>
-        <i class="material-icons"style="padding: 10px;">send</i>
-      </div>
-      <div style="padding-left: 10px; padding-right: 10px;">
-        <p><b>likes</b></p>
-      </div>
-      <div style="padding-left: 10px; padding-right: 10px; display: flex;">
-        <p style="padding-right: 5px;"><b>{{object.profile}}</b> </p>
+      <!--details-->
+      <div style="padding-left: 20px; padding-right: 20px;">
+        <p><b>{{project.title|upper}}</b> by: <a href="{% url 'user_profile' project.profile %}" class="orange-text">{{project.profile.user.username}}</a></p>
         <p> {{project.description}}</p>
+        <p class="grey-text">{{project.date_posted|timesince}} ago</p>
       </div>
-      <div class="grey-text" style="padding-left: 10px; padding-right: 10px;">
-        <p>{{project.date_posted|timesince}} ago</p>
-      </div>
-      <div>
-        {% if project.profile == user %}
-          <div style="padding-left: 10px;">
-            <a href="{% url 'post_update' pk=object.id %}"><i class="material-icons black-text">create</i></a>
-            <a href="{% url 'post_delete' pk=object.id %}"><i class="material-icons black-text">delete</i></a>
-          </div>
-        {% endif %}
-      </div>
-    {% endfor %}
+      <!--vote-->
+      <button type="submit" class=" col s12 waves-effect waves-light btn orange lighten-2"><a href="{% url 'rate_project' project.pk %}" class="white-text">rate project</a></button>
     </div>
+    {% endfor %}
   </div>
 {% endblock %}
 
