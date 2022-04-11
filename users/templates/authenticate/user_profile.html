@@ -35,12 +35,32 @@
         </div>
       </div>
     </div> 
-    </div> 
+  </div> 
 
      
     <!--user projects-->
-    
-</div>
+    <div class="container-fluid" id="img-body">
+      <div class="row" id="img-row">
+        {% for project in projects %}
+          <div class="col s12 m6 l3" style="padding: 0px;" >
+            <div class="card-panel hoverable white" id="card">
+              <div class="card-image">
+                <a href="{% url 'project_details' project.pk %}">
+                  <img src="{{project.image.url}}" class="responsive-img" alt="Image" id="img">
+                </a>
+              </div>
+              <div class="card-content center-align orange lighten-2">
+                <p>{{project.title}}</p>
+                <p>{{project.date_posted|timesince}} ago</p>
+  
+              </div>
+            </div>
+          </div>
+        {% endfor %}
+      </div>  
+      </div>
+    </div>
+ 
 
   <!--footer-->
   <div class="section center" style="color: #8c9395;">
