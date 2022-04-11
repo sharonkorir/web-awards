@@ -13,28 +13,27 @@ import requests
 def index(request):
   projects = Project.objects.all()
   random = Project.get_random()
-  rates = Rate.objects.filter(project=random)
-  if rates:
-      averages = Rate.find_sum(random.pk)
-      design = averages[0]
-      content = averages[1]
-      usability = averages[2]
-      average = averages[3]
-
+  rates = Rate.get_rate_count(random.pk)
+  if rates > 0:
+        averages = Rate.find_sum(random.pk)
+        design = averages[0]
+        content = averages[1]
+        usability = averages[2]
+        average = averages[3] 
+        context = {
+          'projects':projects,
+          'design': design,
+          'content': content,
+          'usability': usability,
+          'average': average,
+          'random': random
+        }
+  else:
       context = {
         'projects':projects,
-        'random':random,
-        "design": design,
-        "content": content,
-        "usability": usability,
-        "average": average,
+        'average' : average,
+        'random':random
       }
-      pass
- 
-  context = {
-    'projects':projects,
-    'random':random,
-  }
   return render(request,'index.html', context)
 
 def search_results(request):

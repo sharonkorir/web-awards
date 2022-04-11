@@ -3,36 +3,64 @@
   {{block.super}}
   <!--random project-->
   <div class="container-fluid">
-    <div class="row" style="background-image: url({{random.image.url}});" id="random">
-        <h5>Popular site:</h5>
-        <a href="{% url 'project_details' random.pk %}"><h3>{{random.title}}</h3></a>
-        <h5>By:{{random.profile.user}}</h5>
-        <div class="row" id="scores">
-          <ul>
-            <li>Design{{design}}</li>
-            <li>Content{{content}}</li>
-            <li>Usability{{usability}}</li>
-            <li>Average Score{{average}}</li>
-          </ul>
+    <div class="row" id="random" style="background-image: url({{random.image.url}});">
+      <a href="{% url 'project_details' pk=random.pk %}">
+        <img src="" alt="">
+      </a>
+      <div class="centered vertical-align">
+        <div class="container white" id="random-project" style="padding: 10px;">
+          <div class="row center-align">
+            <h5>Random project of day:</h5>
+            <h4 class="teal-text"><strong>{{random.title}}</strong></h4></a>
+            <h5>By: {{random.profile.user}}</h5>
+          </div>
+          <!--votes-->
+          <div class="row center-align" style="display: flex; justify-content: center; align-items: center;">
+            <div class="circle2">
+              <p><strong>Design:</strong></p>
+              <p><strong>{{design}}</strong></p> 
+            </div>
+            <div class="circle2">
+              <p><strong>Content:</strong></p>
+              <p><strong>{{content}}</strong></p> 
+            </div>
+            <div class="circle2">
+              <p><strong>Usability:</strong> </p>
+              <p><strong>{{usability}}</strong></p> 
+            </div>
+            <div class="circle2">
+              <p><strong>Average:</strong> </p>
+              <p><strong>{{average}}</strong></p> 
+            </div>
+          </div> 
         </div>
+      </div>
     </div>
   </div>
   <!--all projects-->
-  <div class="container" style="padding-left: 100px; padding-right: 100px;padding-top: 100px;">
-    <div class="divider"></div>
-    <div class="row center-align" style="display: flex; justify-content: center; align-items: center;">
+  <div class="container-fluid" id="img-body">
+    <div class="row" id="img-row">
       {% for project in projects %}
-        <div class="col s12" style="padding: 0px;" >
+        <div class="col s12 m6 l3" style="padding: 0px;" >
           <div class="card-panel hoverable white" id="card">
             <div class="card-image">
               <a href="{% url 'project_details' project.pk %}">
                 <img src="{{project.image.url}}" class="responsive-img" alt="Image" id="img">
               </a>
             </div>
+            <div class="card-content center-align orange lighten-2">
+              <p>{{project.title}}</p>
+              <p>{{project.date_posted|timesince}}</p>
+
+            </div>
           </div>
         </div>
       {% endfor %}
+    </div>  
     </div>
   </div>
-
+<!--footer-->
+<div class="section center" style="color: #8c9395;">
+  <p>2022 web-awards</p>
+</div>
 {% endblock %}
