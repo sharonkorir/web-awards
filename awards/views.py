@@ -31,7 +31,6 @@ def index(request):
   else:
       context = {
         'projects':projects,
-        'average' : average,
         'random':random
       }
   return render(request,'index.html', context)
@@ -81,7 +80,7 @@ def project_details(request, pk):
     else:
         context = {
           'project':project,
-          'average' : average
+
         }
 
     return render(request, 'projects/project_detail.html', context)
