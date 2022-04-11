@@ -15,6 +15,7 @@ from pathlib import Path
 import cloudinary
 import cloudinary.api
 import cloudinary.uploader
+import django_heroku
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -29,7 +30,7 @@ SECRET_KEY = 'django-insecure-^^q@t_81$pt-*^fbikm*16=5%)ld#taguy1m8@%f_r90s2^8+1
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['web-awwards.herokuapp.com']
 
 
 # Application definition
@@ -133,6 +134,8 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static"),
 ]
 
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+django_heroku.settings(locals())
 cloudinary.config( 
   cloud_name = "dq2ipkrpz", 
   api_key = "234513846171837", 
